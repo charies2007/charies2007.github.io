@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://vv-blog.github.io</id>
+    <title>Star</title>
+    <updated>2020-02-18T10:26:00.302Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://vv-blog.github.io"/>
+    <link rel="self" href="https://vv-blog.github.io/atom.xml"/>
+    <subtitle>仰望星空  是星星还是你？ </subtitle>
+    <logo>https://vv-blog.github.io/images/avatar.png</logo>
+    <icon>https://vv-blog.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2020, Star</rights>
+    <entry>
+        <title type="html"><![CDATA[2019CSP游记]]></title>
+        <id>https://vv-blog.github.io/post/2019csp/</id>
+        <link href="https://vv-blog.github.io/post/2019csp/">
+        </link>
+        <updated>2020-01-22T09:13:59.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="数字游戏">数字游戏</h2>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>d</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">code</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span></span></span></span></p>
+<pre><code>cpp
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+char c[20];
+int ans = 0;
+int main()
+{
+    //freopen(&quot;number.in&quot;, &quot;r&quot;, stdin);//freopen
+    //freopen(&quot;number.out&quot;, &quot;w&quot;, stdout);//freopen
+    scanf(&quot;%s&quot;, c+1);
+    for(int i = 1; i &lt;= strlen(c + 1); i++)
+        if(c[i] == '1') ans++;
+    printf(&quot;%d&quot;,ans);
+    //fclose(stdin);//fclose
+    //fclose(stdout);//fclose
+    return 0;
+}
+</code></pre>
+<p>这道题我当时是做出来的，不过在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>t</mi><mi>r</mi><mi>l</mi><mi>e</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">strlen</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span></span></span></span>这个点上稍微浪费了一点时间。</p>
+<h2 id="公交换乘">公交换乘</h2>
+<pre><code>cpp
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+struct zx
+{
+    int tim,v;
+}ti[100001];
+int n,ans=0,used=1,nw=0,val,t,k;
+int main()
+{
+    //freopen(&quot;transfer.in&quot;,&quot;r&quot;,stdin);
+    //freopen(&quot;transfer.out&quot;,&quot;w&quot;,stdout);
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++)
+    {
+        scanf(&quot;%d %d %d&quot;,&amp;k,&amp;val,&amp;t);
+        while(used&lt;=nw&amp;&amp;t-ti[used].tim&gt;45)used++;ans+=val;
+        if(k==0)ti[++nw].tim=t,ti[nw].v=val;
+            else for(int j=used;j&lt;=nw;j++)
+                if(ti[j].v&gt;=val){ti[j].v=0,ans-=val;break;}
+    }
+    printf(&quot;%d&quot;,ans);
+    return 0;
+}
+</code></pre>
+<p>这道题没做出来是真的可惜，简单题想的太复杂了！</p>
+<h2 id="纪念品">纪念品</h2>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>d</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">code</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span></span></span></span></p>
+<pre><code>cpp
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int MAXN = (int) 1e2 + 10;
+
+int t, n, m, a[MAXN][MAXN];
+int w[MAXN], v[MAXN];
+int dp[MAXN*MAXN];
+
+int main() {
+    //freopen(&quot;souvenir.in&quot;, &quot;r&quot;, stdin);
+    //freopen(&quot;souvenir.out&quot;, &quot;w&quot;, stdout);
+    scanf(&quot;%d%d%d&quot;, &amp;t, &amp;n, &amp;m);
+    for (int i=1; i&lt;=t; i++) {
+        for (int j=1; j&lt;=n; j++)
+            scanf(&quot;%d&quot;, &amp;a[i][j]);
+    }
+    for (int i=1; i&lt;t; i++) {
+        for (int j=1; j&lt;=n; j++) {
+            v[j] = a[i][j];
+        }
+        for (int j=1; j&lt;=n; j++) {
+            w[j] = a[i+1][j];
+        }
+        for (int j=0; j&lt;=m; j++)
+            dp[j] = 0;
+        for (int j=1; j&lt;=n; j++) {
+            for (int k=m; k&gt;=v[j]; k--)
+                dp[k-v[j]] = max(dp[k-v[j]], dp[k] + w[j]);
+        }
+        int ans = 0;
+        for (int j=0; j&lt;=m; j++) {
+            ans = max(ans, dp[j] + j);
+        }
+        m = ans;
+    }
+    printf(&quot;%d\n&quot;, m);
+    //fclose(stdin);
+    //fclose(stdout);
+    return 0;
+}
+</code></pre>
+<p>这道题其实还是情有可原的，不过仔细想也是想的出来的。</p>
+<h2 id="加工零件">加工零件</h2>
+<p><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>d</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">code</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">d</span><span class="mord mathdefault">e</span></span></span></span></p>
+<pre><code>cpp
+# include &lt;bits/stdc++.h&gt;
+# define rr register
+const int N=100010;
+struct Edge{
+    int to,next;
+}edge[N&lt;&lt;1];
+struct Node{
+    int id,w;
+};
+int head[N],sum;
+int dis[N][2];
+int n,m,q;
+std::queue &lt;Node&gt; Q;
+inline int read(void){
+    int res,f=1;
+    char c;
+    while((c=getchar())&lt;'0'||c&gt;'9')
+        if(c=='-')f=-1;
+    res=c-48;
+    while((c=getchar())&gt;='0'&amp;&amp;c&lt;='9')
+        res=res*10+c-48;
+    return res*f;       
+}
+inline void add(int x,int y){
+    edge[++sum].to=y;
+    edge[sum].next=head[x];
+    head[x]=sum;
+    return;
+}
+inline void bfs(void){
+    Q.push((Node){1,0});
+    while(!Q.empty()){
+        Node tmp=Q.front();
+        Q.pop();
+        for(rr int j=head[tmp.id];j;j=edge[j].next){
+            if(~dis[edge[j].to][(tmp.w+1)%2])
+                continue;
+            dis[edge[j].to][(tmp.w+1)%2]=tmp.w+1;   
+            Q.push((Node){edge[j].to,tmp.w+1}); 
+        }
+    }
+    return;
+}
+int main(void){
+    n=read(),m=read(),q=read();
+    for(rr int i=1,x,y;i&lt;=m;++i){
+        x=read(),y=read();
+        add(x,y),add(y,x);
+    }
+    memset(dis,-1,sizeof(dis));
+    bfs();
+    int x,L;
+    while(q--){
+        x=read(),L=read();
+        if(dis[x][(L%2)]&gt;L||dis[x][(L%2)]==-1)
+            puts(&quot;No&quot;);
+        else
+            puts(&quot;Yes&quot;);    
+    }
+    return 0;
+}
+</code></pre>
+<p>T4还是问题最大的，自己回家做也只做了95pts，不过也很不错了，这道题毕竟比赛时一点思路也没有。</p>
+<h2 id="总结">总结</h2>
+<p>这次<code>CSP</code>算是一次练习吧，不过也拿了一个二等奖。T1做对是理所当然的，T2、T3有点可惜，T4不想说什么<br>
+<code>比赛分数：100pts</code><br>
+<code>获得奖项：二等奖</code><br>
+<code>家中自测：395pts</code>（满分400pts）<br>
+其实可以看到，家中自测是395pts（一等奖），所以还是那句话：</p>
+<h3 id="实力是有的要稳住稳住">实力是有的，要稳住，稳住！</h3>
+]]></content>
+    </entry>
+</feed>
