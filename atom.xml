@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://charies2007.github.io</id>
-    <title>Star</title>
-    <updated>2020-02-19T10:13:37.185Z</updated>
+    <title>Star | zzzrx&apos;s Blog</title>
+    <updated>2020-02-19T10:14:57.099Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://charies2007.github.io"/>
     <link rel="self" href="https://charies2007.github.io/atom.xml"/>
     <subtitle>仰望星空  是星星还是你？ </subtitle>
     <logo>https://charies2007.github.io/images/avatar.png</logo>
     <icon>https://charies2007.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Star</rights>
+    <rights>All rights reserved 2020, Star | zzzrx&apos;s Blog</rights>
     <entry>
         <title type="html"><![CDATA[P1411 树]]></title>
         <id>https://charies2007.github.io/post/p1411-shu/</id>
