@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>P5747 [NOI2004]曼哈顿 | Star | zzzrx&#39;s Blog</title>
+<meta name="description" content="仰望星空  是星星还是你？ ">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://charies2007.github.io/favicon.ico?v=1582191569463">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://charies2007.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://charies2007.github.io">Star | zzzrx&#39;s Blog</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>P5747 [NOI2004]曼哈顿</h1>
+            <p class="article-meta">
+              2019-12-05
+              
+                <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge warning">
+                  动态规划，dp
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <h2 id="解法半枚举-动态规划">解法：半枚举、动态规划。</h2>
+<p>首先是观察数据规模发现<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>很小，于是可以在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>上做文章（这是我一直以为是状压DP的原因。。。）——将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>行的方向枚举出来，这样变量就只有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>列的方向了。</p>
+<p>以下都是在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>行的方向确定情况进行的讨论。</p>
+<p>然后对于一个要求<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">（</mi><mi>x</mi><mn>1</mn><mo separator="true">,</mo><mi>y</mi><mn>1</mn><mi mathvariant="normal">）</mi></mrow><annotation encoding="application/x-tex">（x1,y1）</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord cjk_fallback">（</span><span class="mord mathdefault">x</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">1</span><span class="mord cjk_fallback">）</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi mathvariant="normal">（</mi><mi>x</mi><mn>2</mn><mo separator="true">,</mo><mi>y</mi><mn>2</mn><mi mathvariant="normal">）</mi></mrow><annotation encoding="application/x-tex">（x2,y2）</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord cjk_fallback">（</span><span class="mord mathdefault">x</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">2</span><span class="mord cjk_fallback">）</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">x1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">1</span></span></span></span>与<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">2</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">y1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">1</span></span></span></span>与<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">y2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">2</span></span></span></span>关系确定，我们画图可以发现所有的情况都可以等效为一下4种（不包括<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>1</mn><mo>=</mo><mi>x</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x1=x2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">2</span></span></span></span>或<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mn>1</mn><mo>=</mo><mi>y</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">y1=y2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">2</span></span></span></span>情况）：</p>
+<figure data-type="image" tabindex="1"><img src="https://cdn.luogu.com.cn/upload/image_hosting/1a30uub3.png" alt="" loading="lazy"></figure>
+<h4 id="将其归纳一下就是">将其归纳一下，就是：</h4>
+<p>当<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">x1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">1</span></span></span></span>行、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">2</span></span></span></span>行符合方向时，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>y</mi><mn>1</mn><mo separator="true">,</mo><mi>y</mi><mn>2</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[y1,y2]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">2</span><span class="mclose">]</span></span></span></span>列中要有一个符合方向。</p>
+<p>当只有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">x1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">1</span></span></span></span>行符合方向时，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>列要符合方向。</p>
+<p>当只有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">2</span></span></span></span>行符合方向时，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">y1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">1</span></span></span></span>列要符合方向。</p>
+<p>当<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">x1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">1</span></span></span></span>行、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">2</span></span></span></span>行都不符合方向时，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">y1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">1</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">y2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">2</span></span></span></span>要同时符合方向。</p>
+<h4 id="然后讨论x1x2或y1y2的情况">然后讨论x1=x2或y1=y2的情况：</h4>
+<p>当<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>1</mn><mo>=</mo><mi>x</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x1=x2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">2</span></span></span></span>且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mn>1</mn><mo>=</mo><mi>y</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">y1=y2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">2</span></span></span></span>时，无论方向都符合。</p>
+<p>当<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>1</mn><mo>=</mo><mi>x</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x1=x2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">2</span></span></span></span>且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mn>1</mn><mo>&lt;</mo><mo>&gt;</mo><mi>y</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">y1&lt;&gt;y2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">2</span></span></span></span>时，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">x1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">1</span></span></span></span>行要符合方向。</p>
+<p>当<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>1</mn><mo>&lt;</mo><mo>&gt;</mo><mi>x</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x1&lt;&gt;x2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">x</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">2</span></span></span></span>且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mn>1</mn><mo>=</mo><mi>y</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">y1=y2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">2</span></span></span></span>时，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">y1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">1</span></span></span></span>列要符合方向。</p>
+<p>因为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">x1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">1</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">x2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord mathdefault">x</span><span class="mord">2</span></span></span></span>行的方向建立在半枚举的基础上，所以当不满足方向时，就是无效状态。</p>
+<p>排除无效状态后，设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>为1，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span></span>为0，将<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>列的方向看作长度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>的数字串，那么上面<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>列的满足条件就都可以等价于区间<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span>中要有一个为0或1。</p>
+<p>设为0为0区间，为1为1区间。</p>
+<p>问题就变成了求最小代价使所有0、1区间全部得到满足，于是可以用动态规划解决。</p>
+<p>DP之前将所有的0、1区间讨论处理出来，分别按l为第一关键字，r为第二关键字排序，作为DP基础。</p>
+<p>DP之前还有一个小小的剪枝，就是对于0、1性质相同的区间，如果存在包含关系，则去掉大区间，因为小区间满足大区间也肯定满足，这个优化的效果十分显著。</p>
+<p>设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>s</mi><mi>t</mi><mo>[</mo><mi>i</mi><mo separator="true">,</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">cost[i,1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>表示把i列方向变成1的代价，对应的有<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>s</mi><mi>t</mi><mo>[</mo><mi>i</mi><mo separator="true">,</mo><mn>0</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">cost[i,0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">]</span></span></span></span>。</p>
+<p>动态规划的方程是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo separator="true">,</mo><mi>k</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">f[i,j,k]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span></span></span></span>表示前<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">i-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.74285em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>列状态确定，且满足了排序后的所有编号在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>j</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,j-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>的0区间与所有编号在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">[1,k-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>的1区间的最小代价。</p>
+<p>这样通过讨论第i列的状态，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mo separator="true">,</mo><mi>k</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">f[i,j,k]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span></span></span></span>就可以转移到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>i</mi><mo separator="true">,</mo><mi>j</mi><mn>1</mn><mo separator="true">,</mo><mi>k</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">f[i,j1,k1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">1</span></span></span></span>。其中若第i列方向为0，则<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">j1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord">1</span></span></span></span>为第一个左界&gt;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>的0区间，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">k1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">1</span></span></span></span>为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>，转移时要加上<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>s</mi><mi>t</mi><mo>[</mo><mi>i</mi><mo separator="true">,</mo><mn>0</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">cost[i,0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">]</span></span></span></span>；若第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>列方向为1，则<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">j1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord">1</span></span></span></span>为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi></mrow><annotation encoding="application/x-tex">j</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span></span></span></span>，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">k1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">1</span></span></span></span>第一个左界&gt;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>的1区间，转移时要加上<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>o</mi><mi>s</mi><mi>t</mi><mo>[</mo><mi>i</mi><mo separator="true">,</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">cost[i,1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>。</p>
+<p>注意枚举还需要有左边界<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi><mn>0</mn></mrow><annotation encoding="application/x-tex">j0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord">0</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mn>0</mn></mrow><annotation encoding="application/x-tex">k0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">0</span></span></span></span>代表第一个包含i的区间，而所有的右边界&lt;<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>的区间应该在枚举<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>之前全部保证满足。因为没有左边界会从无效状态直接跳到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">j1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord">1</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">k1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">1</span></span></span></span>，漏掉很多区间限制。</p>
+<p>每一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>j</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">j1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.85396em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mord">1</span></span></span></span>与<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi><mn>1</mn></mrow><annotation encoding="application/x-tex">k1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">1</span></span></span></span>都可以预处理出来，这样递推取最小值就可以了。边界是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo>]</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">f[1,1,1]=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，结果是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>n</mi><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>s</mi><mi>u</mi><mi>m</mi><mo>[</mo><mn>0</mn><mo>]</mo><mo>+</mo><mn>1</mn><mo separator="true">,</mo><mi>s</mi><mi>u</mi><mi>m</mi><mo>[</mo><mn>1</mn><mo>]</mo><mo>+</mo><mn>1</mn><mo>]</mo><mo>+</mo></mrow><annotation encoding="application/x-tex">f[n+1,sum[0]+1,sum[1]+1]+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mord">+</span></span></span></span>当前行状态的生成代价</p>
+<pre><code class="language-cpp">#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cstring&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn=111, maxl = 201, inf = 100000000;
+int n, m, K, SM, SN[maxn], r[3], rr[3][maxn], ll[3][maxn], costm[maxn][3], costn[maxn][3];
+int sm[maxn], sn[maxn], vm[maxn], vn[maxn], f[maxn][maxl][maxl], pp[maxn][maxl][maxl];
+char s[maxn], tm[3], tn[3];
+bool g[maxn][maxl][maxl];
+struct req { int x1, x2, y1, y2; } a[maxn];
+struct inter { int l, r; } in[3][maxl]; 
+
+void init()
+{
+    scanf(&quot;%d%d&quot;, &amp;m, &amp;n);
+    scanf(&quot;%s&quot;, s);
+    for (int i=1; i&lt;=m; ++i) sm[i] = (s[i-1]=='E');
+    scanf(&quot;%s&quot;, s);
+    for (int i=1; i&lt;=n; ++i) sn[i] = (s[i-1]=='S');
+    for (int i=1; i&lt;=m; ++i) 
+    {
+        scanf(&quot;%d&quot;, vm+i);
+        costm[i][sm[i]] = 0, costm[i][1-sm[i]] = vm[i];
+    }
+    for (int i=1; i&lt;=n; ++i) 
+    {
+        scanf(&quot;%d&quot;, vn+i);
+        costn[i][sn[i]] = 0, costn[i][1-sn[i]] = vn[i];
+    }
+    scanf(&quot;%d&quot;, &amp;K);
+    for (int i=1; i&lt;=K; ++i) 
+        scanf(&quot;%d%d%d%d&quot;, &amp;a[i].x1, &amp;a[i].y1, &amp;a[i].x2, &amp;a[i].y2);
+    tm[0] = 'W', tm[1] = 'E', tn[0] = 'N', tn[1] = 'S';
+}
+
+inline bool cmp(const inter &amp;a,const inter &amp;b) 
+{ return a.l&lt;b.l || (a.l==b.l &amp;&amp; a.r&lt;b.r); }
+
+void maintain()
+{
+    sort(in[0]+1,in[0]+r[0]+1,cmp);
+    sort(in[1]+1,in[1]+r[1]+1,cmp);
+    for (int q=0; q&lt;2; ++q)
+    {
+        for (int i=1; i&lt;=n; ++i)
+        {
+            int j = 1; ll[q][i] = 1;
+            for (; j&lt;=r[q]; ++j)
+            if (in[q][j].l&gt;i) break;
+            else if (in[q][j].r&lt;i) ll[q][i] = j+1;
+            rr[q][i] = j; 
+        }
+    }
+}
+
+void add(int p, int L, int R)
+{
+    if (L&gt;R) swap(L,R);
+    for (int i=1; i&lt;=r[p]; ++i)
+        if (L&lt;=in[p][i].l &amp;&amp; in[p][i].r&lt;=R) return;
+    in[p][++r[p]].l = L, in[p][r[p]].r = R; 
+}
+
+bool prepare(int s)
+{
+    memset(rr, 0 ,sizeof rr);
+    memset(ll, 0, sizeof ll);
+    r[0] = 0, r[1] = 0;
+    for (int i=1; i&lt;=K; ++i)
+    {
+        int x1 = a[i].x1, y1 = a[i].y1, x2 = a[i].x2, y2 = a[i].y2;
+        int p = (x1&lt;x2), q = (y1&lt;y2);
+        if (x1!=x2 &amp;&amp; y1!=y2)
+        {
+            if (((s &gt;&gt; (x1-1)) &amp; 1)==q &amp;&amp; ((s &gt;&gt; (x2-1)) &amp; 1)==q) add(p,y1,y2); 
+            else if (((s &gt;&gt; (x1-1)) &amp; 1)==q) add(p,y2,y2);
+            else if (((s &gt;&gt; (x2-1)) &amp; 1)==q) add(p,y1,y1);
+            else
+            {
+                int t = 0, fr=min(x1,x2)+1, en=max(x1,x2);
+                for (int j=fr; j&lt;en; ++j)
+                    if (((s &gt;&gt; (j-1)) &amp; 1)==q) t = 1;
+                if (!t) return 0;
+                add(p,y1,y1); add(p,y2,y2);
+            }
+        }
+        else if (x1==x2 &amp;&amp; y1!=y2 &amp;&amp; ((s &gt;&gt; (x1-1)) &amp; 1) != q) return 0;
+        else if (x1!=x2 &amp;&amp; y1==y2) add(p,y1,y2);
+    }
+    maintain();
+    return 1;
+}
+
+int dp()
+{
+    memset(f, 0x7, sizeof f);
+    f[1][1][1] = 0;
+    for (int i=1; i&lt;=n; ++i)
+    for (int j=ll[0][i]; j&lt;=rr[0][i]; ++j)
+    for (int k=ll[1][i]; k&lt;=rr[1][i]; ++k)
+    if (f[i][j][k]&lt;inf)
+    {
+        if (f[i+1][rr[0][i]][k]&gt;f[i][j][k]+costn[i][0])
+        {
+            f[i+1][rr[0][i]][k] = f[i][j][k]+costn[i][0];
+            g[i+1][rr[0][i]][k] = 0;
+            pp[i+1][rr[0][i]][k] = j;
+        }
+        if (f[i+1][j][rr[1][i]]&gt;f[i][j][k]+costn[i][1])
+        {
+            f[i+1][j][rr[1][i]] = f[i][j][k]+costn[i][1];
+            g[i+1][j][rr[1][i]] = 1;
+            pp[i+1][j][rr[1][i]] = k;
+        }
+    }
+    return f[n+1][r[0]+1][r[1]+1];
+}
+
+void get_SN(int i, int j, int k)
+{
+    if (i==1) return;
+    SN[i-1] = g[i][j][k];
+    if (!g[i][j][k]) get_SN(i-1,pp[i][j][k],k);
+    else get_SN(i-1,j,pp[i][j][k]);
+}
+
+void work()
+{
+    int tot = (1&lt;&lt;m), ans = inf;
+    for (int i=0; i&lt;tot; ++i)
+    {
+        int t = 0;
+        for (int j=1; j&lt;=m; ++j) t += costm[j][(i&gt;&gt;(j-1))&amp;1];
+        if (prepare(i))
+        {
+            t += dp();
+            if (t&lt;ans)
+            {
+                ans = t, SM = i;
+                get_SN(n+1,r[0]+1,r[1]+1);
+            }
+        }
+    }
+    if (ans&lt;inf)
+    {
+        printf(&quot;possible\n&quot;);
+        printf(&quot;%d\n&quot;, ans);
+        while (m--) printf(&quot;%c&quot;, tm[SM &amp; 1]), SM &gt;&gt;= 1;
+        printf(&quot;\n&quot;);
+        for (int i=1; i&lt;=n; ++i)printf(&quot;%c&quot;, tn[SN[i]]);
+        printf(&quot;\n&quot;);
+    } else printf(&quot;impossible\n&quot;);
+}
+
+int main()
+{
+    //freopen(&quot;manhattan.in&quot;, &quot;r&quot;, stdin);
+    //freopen(&quot;manhattan.out&quot;, &quot;w&quot;, stdout);
+    init();
+    work();
+    return 0;
+}
+</code></pre>
+<p>虽然要枚举所有的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span>行状态、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>列、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>u</mi><mi>m</mi><mo>[</mo><mn>0</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">sum[0]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord">0</span><span class="mclose">]</span></span></span></span>、<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>u</mi><mi>m</mi><mo>[</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">um[1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mopen">[</span><span class="mord">1</span><span class="mclose">]</span></span></span></span>，理论极限时间复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mi mathvariant="normal">（</mi><msup><mn>2</mn><mi>m</mi></msup><mi>n</mi><msup><mi>k</mi><mn>2</mn></msup><mi mathvariant="normal">）</mi></mrow><annotation encoding="application/x-tex">O（2^mnk^2）</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord cjk_fallback">（</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span></span></span></span></span><span class="mord mathdefault">n</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord cjk_fallback">）</span></span></span></span>，但是由于dp之前的排除大区间的优化，<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>k</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">k^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>实际上是远远达不到的，因为大部分的0、1区间长度都是1，所以不用担心超时的问题。</p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://charies2007.github.io/post/p1141-01-mi-gong/">
+                <h3 class="post-title">
+                  P1141 01迷宫
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://charies2007.github.io/images/avatar.png?v=1582191569463" class="no-responsive avatar">
+    <div class="text-muted">仰望星空  是星星还是你？ </div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5750-noi1999ding-zi-he-xiao-qiu/">P5750 [NOI1999]钉子和小球</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5479-bjoi2015yin-shen-zhu/">P5479 [BJOI2015]隐身术</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p6011-scoi2006dong-tai-zui-zhi/">P6011 [SCOI2006]动态最值</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/sublime text 3/">把sublime text 3随身携带</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5567-sdoi2008li-fang-ti-fu-gai/">P5567 [SDOI2008]立方体覆盖</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5045-scoi2003zhi-zhu-nan-ti/">P5045 [SCOI2003]蜘蛛难题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5025-snoi2017zha-dan/">P5025 [SNOI2017]炸弹</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5746-noi2002ji-qi-ren-m-hao/">P5746 [NOI2002]机器人M号</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5747-noi2004man-ha-dun/">P5747 [NOI2004]曼哈顿</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p1141-01-mi-gong/">P1141 01迷宫</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge ">
+          动态规划，dp
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/DVV-gb4qg/" class="badge ">
+          深度优先搜索，DFS
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge secondary">
+          线段树
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge success">
+          文章
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/P8EqtRizK/" class="badge secondary">
+          模拟
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/weXoBZWVV/" class="badge secondary">
+          递推
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge ">
+          广度优先搜索，BFS
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge warning">
+          游记
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://charies2007.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

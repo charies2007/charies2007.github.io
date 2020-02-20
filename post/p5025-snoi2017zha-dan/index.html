@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>P5025 [SNOI2017]炸弹 | Star | zzzrx&#39;s Blog</title>
+<meta name="description" content="仰望星空  是星星还是你？ ">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://charies2007.github.io/favicon.ico?v=1582191569463">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://charies2007.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://charies2007.github.io">Star | zzzrx&#39;s Blog</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>P5025 [SNOI2017]炸弹</h1>
+            <p class="article-meta">
+              2019-12-13
+              
+                <a href="https://charies2007.github.io/tag/weXoBZWVV/" class="badge success">
+                  递推
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <p>不难发现，在引爆一个炸弹之后发生的一串连锁反应中，只有两种情况：</p>
+<p>1.左边（右边）的炸弹依旧引爆左边（右边）的炸弹。</p>
+<p>2.左边（右边）的炸弹引爆了原本右边（左边）引爆不了的炸弹。</p>
+<p>并且第二种情况可能会在反应中反复很多次。</p>
+<p>假设在第二种情况中连缩反应是从<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mo>−</mo><mo>&gt;</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a-&gt;b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">a</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span>开始的，对于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi></mrow><annotation encoding="application/x-tex">a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span></span></span></span>的答案的计算，只需要从<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>b</mi></mrow><annotation encoding="application/x-tex">b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span>递推过来即可。</p>
+<p>于是考虑先从左往右递推处理出来每一个点左边的所有能够引爆的炸弹，以及引爆了左边的炸弹之后新增加的炸弹的半径对于右边炸弹的影响。</p>
+<p>不难发现第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>个炸弹目前的答案就是第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>个炸弹最终的答案。</p>
+<p>然后从右往左倒着推一遍，处理出每个点右边的范围，这时第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个炸弹的答案是从第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>个炸弹推过来的，又因为第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>个炸弹的答案是最终的答案，只需要把第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>个炸弹的答案合并到第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个就好了，这样使得第<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>个炸弹的答案也是最终的正确答案了。</p>
+<p>这样一直递推，一定会使得最后的答案都是正确答案。</p>
+<p>考虑时间复杂度的计算，一个点的递推次数取决于它的爆炸范围内有多少个互相不可达的子块。如果有一个点的爆炸范围内有很多的不可达的子块，那么它便会和这些子块合并，不难发现，每个点至多会被用到2次，所以复杂度线性。</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+
+#define REP(i,a,b) for(int i=a,i##_end_=b;i&lt;=i##_end_;++i)
+#define DREP(i,a,b) for(int i=a,i##_end_=b;i&gt;=i##_end_;--i)
+typedef long long ll;
+
+using namespace std;
+
+void File(){
+    freopen(&quot;bzoj5017.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;bzoj5017.out&quot;,&quot;w&quot;,stdout);
+}
+
+template&lt;typename T&gt;void read(T &amp;_){
+    T __=0,mul=1; char ch=getchar();
+    while(!isdigit(ch)){
+        if(ch=='-')mul=-1;
+        ch=getchar();
+    }
+    while(isdigit(ch))__=(__&lt;&lt;1)+(__&lt;&lt;3)+(ch^'0'),ch=getchar();
+    _=__*mul;
+}
+
+const int maxn=5e5+10;
+const ll mod=1e9+7;
+int n,l[maxn],r[maxn];
+ll x[maxn],y[maxn],ans;
+
+int main(){
+//  File();
+    read(n);
+    REP(i,1,n)read(x[i]),read(y[i]),l[i]=r[i]=i;
+    REP(i,1,n)while(l[i]&gt;1 &amp;&amp; x[i]-x[l[i]-1]&lt;=y[i]){
+        y[i]=max(y[i],x[l[i]-1]+y[l[i]-1]-x[i]);
+        //cout&lt;&lt;x[l[i]-1]+y[l[i]-1]-x[i]&lt;&lt;&quot; &quot;;
+        l[i]=l[l[i]-1];
+        y[i]=max(y[i],x[l[i]]+y[l[i]]-x[i]);
+        //cout&lt;&lt;x[l[i]]+y[l[i]]-x[i]&lt;&lt;endl;
+    }
+    DREP(i,n,1)while(r[i]&lt;n &amp;&amp; x[r[i]+1]-x[i]&lt;=y[i]){
+        l[i]=min(l[i],l[r[i]+1]);
+        //cout&lt;&lt;l[r[i]+1]&lt;&lt;&quot; &quot;;
+        r[i]=r[r[i]+1];
+        l[i]=min(l[i],l[r[i]]);
+        //cout&lt;&lt;l[r[i]]&lt;&lt;endl;
+    }
+    REP(i,1,n){
+        ans=(ans+1ll*i*(r[i]-l[i]+1)%mod)%mod;
+        //cout&lt;&lt;l[i]&lt;&lt;&quot; &quot;&lt;&lt;r[i]&lt;&lt;endl;
+    }
+    printf(&quot;%lld\n&quot;,(ans+mod)%mod);
+    return 0;
+}
+
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://charies2007.github.io/post/p5746-noi2002ji-qi-ren-m-hao/">
+                <h3 class="post-title">
+                  P5746 [NOI2002]机器人M号
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://charies2007.github.io/images/avatar.png?v=1582191569463" class="no-responsive avatar">
+    <div class="text-muted">仰望星空  是星星还是你？ </div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5750-noi1999ding-zi-he-xiao-qiu/">P5750 [NOI1999]钉子和小球</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5479-bjoi2015yin-shen-zhu/">P5479 [BJOI2015]隐身术</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p6011-scoi2006dong-tai-zui-zhi/">P6011 [SCOI2006]动态最值</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/sublime text 3/">把sublime text 3随身携带</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5567-sdoi2008li-fang-ti-fu-gai/">P5567 [SDOI2008]立方体覆盖</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5045-scoi2003zhi-zhu-nan-ti/">P5045 [SCOI2003]蜘蛛难题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5025-snoi2017zha-dan/">P5025 [SNOI2017]炸弹</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5746-noi2002ji-qi-ren-m-hao/">P5746 [NOI2002]机器人M号</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5747-noi2004man-ha-dun/">P5747 [NOI2004]曼哈顿</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p1141-01-mi-gong/">P1141 01迷宫</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge secondary">
+          动态规划，dp
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/DVV-gb4qg/" class="badge success">
+          深度优先搜索，DFS
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge success">
+          线段树
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge ">
+          文章
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/P8EqtRizK/" class="badge success">
+          模拟
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/weXoBZWVV/" class="badge secondary">
+          递推
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge ">
+          广度优先搜索，BFS
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge secondary">
+          游记
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://charies2007.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

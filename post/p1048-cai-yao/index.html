@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>游记 | Star | zzzrx&#39;s Blog</title>
+<title>P1048 采药 | Star | zzzrx&#39;s Blog</title>
 <meta name="description" content="仰望星空  是星星还是你？ ">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -23,6 +23,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://charies2007.github.io">Star | zzzrx&#39;s Blog</a></h3>
@@ -79,40 +80,60 @@
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
-          <h2 class="current-tag">标签: 游记</h2>
-          
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://charies2007.github.io/post/2019csp/">2019CSP游记</a>
-    </h2>
-    <p class="article-meta">
-      2019-11-22
-      
-        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge secondary">
-          游记
-        </a>
-      
-    </p>
-    <p class="text-lead">
-      
-    </p>
-    <div class="row">
-      <a href="https://charies2007.github.io/post/2019csp/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
+          <article class="article">
+            <h1>P1048 采药</h1>
+            <p class="article-meta">
+              2019-10-18
+              
+                <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge ">
+                  动态规划，dp
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <p>作者<s>特别喜欢</s>写这种DP的题解</p>
+<h2 id="这是一道dp中的背包问题">这是一道DP中的背包问题</h2>
+<p>上代码：</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;//万能头文件 
+using namespace std;
+int f[1010],w[110],c[110];
+int main()
+{
+	int t,m;
+	scanf(&quot;%d %d&quot;,&amp;t,&amp;m);
+	for(int i=1;i&lt;=m;++i)
+		scanf(&quot;%d %d&quot;,&amp;w[i],&amp;c[i]);//每种药的摘采时间和价值 
+	for(int i=1;i&lt;=m;++i)//循环每一种植物 
+	for(int v=t;v&gt;=w[i];--v)//f[v]表示时间不超过v的最大价值 
+	if(f[v]&lt;f[v-w[i]]+c[i])
+		f[v]=f[v-w[i]]+c[i];//判断将草药放入背包是否更优解 
+	printf(&quot;%d\n&quot;,f[t]);//输出储存在f[t]里的最优值 
+	return 0;
+}
+</code></pre>
+<h3 id="希望对大家有帮助">希望对大家有帮助！</h3>
 
-
+            </div>
+          </article>
         </div>
-        <div class="row flex-edges">
-  
-  
-</div>
-
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://charies2007.github.io/post/p1020-dao-dan-lan-jie/">
+                <h3 class="post-title">
+                  P1020 导弹拦截
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
       </div>
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://charies2007.github.io/images/avatar.png?v=1582191569463" class="no-responsive avatar">
@@ -231,15 +252,15 @@
           动态规划，dp
         </a>
       
-        <a href="https://charies2007.github.io/tag/DVV-gb4qg/" class="badge secondary">
+        <a href="https://charies2007.github.io/tag/DVV-gb4qg/" class="badge warning">
           深度优先搜索，DFS
         </a>
       
-        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge success">
+        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge ">
           线段树
         </a>
       
-        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge secondary">
+        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge warning">
           文章
         </a>
       
@@ -247,7 +268,7 @@
           模拟
         </a>
       
-        <a href="https://charies2007.github.io/tag/weXoBZWVV/" class="badge ">
+        <a href="https://charies2007.github.io/tag/weXoBZWVV/" class="badge warning">
           递推
         </a>
       
@@ -255,7 +276,7 @@
           广度优先搜索，BFS
         </a>
       
-        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge warning">
+        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge success">
           游记
         </a>
       
@@ -265,6 +286,7 @@
     Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://charies2007.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
+
 
     </div>
 

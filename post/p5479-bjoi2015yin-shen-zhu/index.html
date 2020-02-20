@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>P5479 [BJOI2015]隐身术 | Star | zzzrx&#39;s Blog</title>
+<meta name="description" content="仰望星空  是星星还是你？ ">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://charies2007.github.io/favicon.ico?v=1582191569463">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://charies2007.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://charies2007.github.io">Star | zzzrx&#39;s Blog</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>P5479 [BJOI2015]隐身术</h1>
+            <p class="article-meta">
+              2020-02-13
+              
+                <a href="https://charies2007.github.io/tag/DVV-gb4qg/" class="badge secondary">
+                  深度优先搜索，DFS
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <p>上次发布了一道<strong>错误</strong>的题解，影响了不少人的刷题，这里我深感抱歉（感觉有点不通顺</p>
+<p>这次的题解我已经测试过，100%可以AC，所以正确的问题各位OIer不用担心</p>
+<h3 id="solution"><strong>Solution</strong></h3>
+<p>考虑枚举<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span>的每个后缀<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span><s>（注意后缀是指啥= =）</s>，求后缀<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">i</span></span></span></span>中有哪些前缀满足条件。</p>
+<p>怎么处理编辑距离呢？<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>很小，直接搜。</p>
+<p>设<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span>分别匹配到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>位置，可以用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">SA</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">A</span></span></span></span>求<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>L</mi><mi>C</mi><mi>P</mi></mrow><annotation encoding="application/x-tex">LCP</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">L</span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span></span>(x,y)，然后直接跳到下一个不匹配位置。</p>
+<p>如果<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>S</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">S_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>≠<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">T_y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>，那么有三种选择：删掉<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">T_y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>→<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">y+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，在<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">T_y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>前插入一个<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>S</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">S_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>→<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>，把<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>T</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">T_y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span>替换成<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>S</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">S_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>→<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">x+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">y+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>。</p>
+<p>所以<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>D</mi><mi>F</mi><mi>S</mi></mrow><annotation encoding="application/x-tex">DFS</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>的复杂度是<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>3</mn><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">3^k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span>的。</p>
+<p>匹配完<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span></span></span></span>串后，如果还剩下一些可用编辑距离<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>e</mi><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">rest</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span></span></span></span>，显然此时前缀[<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>−<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>e</mi><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">rest</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span></span></span></span>,<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>r</mi><mi>e</mi><mi>s</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">rest</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span></span></span></span>]都满足条件，差分一下即可。注意这些前缀不要算重（一个位置只能算一次）。</p>
+<p>复杂度<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>l</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo>+</mo><mi>n</mi><msup><mn>3</mn><mi>k</mi></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(nlogn+n3^k)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>。</p>
+<h3 id="code"><strong>Code</strong></h3>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+typedef long long LL;
+const int N=1e5+7;
+ 
+int na,nb,Now,L,R,sum[N];
+char s[N];
+struct Suffix_Array
+{
+    int sa[N],sa2[N],rk[N],tm[N],ht[N],Log[N],st[17][N];
+    inline int LCP(int l,int r)
+    {
+        l=rk[l], r=rk[r]; if(l&gt;r) std::swap(l,r);
+        ++l; int k=Log[r-l+1];
+        return std::min(st[k][l],st[k][r-(1&lt;&lt;k)+1]);
+    }
+    void Build(const char *s,const int n)
+    {
+        int m=27,*x=rk,*y=sa2;
+        for(int i=0; i&lt;=m; ++i) tm[i]=0;
+        for(int i=1; i&lt;=n; ++i) ++tm[x[i]=s[i]-'A'+1];
+        for(int i=1; i&lt;=m; ++i) tm[i]+=tm[i-1];
+        for(int i=n; i; --i) sa[tm[x[i]]--]=i;
+        for(int k=1,p=0; k&lt;n; k&lt;&lt;=1,m=p,p=0)
+        {
+            for(int i=n-k+1; i&lt;=n; ++i) y[++p]=i;
+            for(int i=1; i&lt;=n; ++i) if(sa[i]&gt;k) y[++p]=sa[i]-k;
+ 
+            for(int i=0; i&lt;=m; ++i) tm[i]=0;
+            for(int i=1; i&lt;=n; ++i) ++tm[x[i]];
+            for(int i=1; i&lt;=m; ++i) tm[i]+=tm[i-1];
+            for(int i=n; i; --i) sa[tm[x[y[i]]]--]=y[i];
+ 
+            std::swap(x,y), x[sa[1]]=p=1;
+            for(int i=2; i&lt;=n; ++i)
+                x[sa[i]]=(y[sa[i]]==y[sa[i-1]]&amp;&amp;y[sa[i]+k]==y[sa[i-1]+k])?p:++p;
+            if(p&gt;=n) break;
+        }
+        for(int i=1; i&lt;=n; ++i) rk[sa[i]]=i;
+        ht[1]=0;
+        for(int i=1,k=0; i&lt;=n; ++i)
+        {
+            if(rk[i]==1) continue;
+            if(k) --k;
+            int p=sa[rk[i]-1];
+            while(i+k&lt;=n &amp;&amp; p+k&lt;=n &amp;&amp; s[i+k]==s[p+k]) ++k;
+            ht[rk[i]]=k;
+        }
+        st[0][1]=ht[1];
+        for(int i=2; i&lt;=n; ++i) Log[i]=Log[i&gt;&gt;1]+1, st[0][i]=ht[i];
+        for(int j=1; j&lt;=Log[n]; ++j)
+            for(int t=1&lt;&lt;j-1,i=n-t; i; --i)
+                st[j][i]=std::min(st[j-1][i],st[j-1][i+t]);
+    }
+}sa;
+ 
+inline void Upd(int l,int r)
+{
+    l=std::max(l,Now), r=std::min(r,nb), L=std::min(l,L), R=std::max(r+1,R);
+    ++sum[l], --sum[r+1];//注意可行前缀位置的限制（在Now~nb内）
+}
+void DFS(int x,int y,int rest)
+{
+    int t=sa.LCP(x,y+na+1);
+    x+=t, y+=t;
+    if(x&gt;na||y&gt;nb)
+    {
+        int d=rest-(na-x+1);
+        if(d&gt;=0) Upd(y-1-d,y-1+d);
+        return;
+    }
+    if(rest) --rest, DFS(x+1,y,rest), DFS(x,y+1,rest), DFS(x+1,y+1,rest);
+}
+ 
+int main()
+{
+    int K; scanf(&quot;%d%s&quot;,&amp;K,s+1);
+    na=strlen(s+1), s[na+1]='[';
+    scanf(&quot;%s&quot;,s+na+2), nb=strlen(s+na+2);
+    const int n=na+nb+1; sa.Build(s,n);
+    int ans=0;
+    for(int i=1,delta=std::max(0,na-K); i+delta&lt;=nb; ++i)
+    {
+        Now=i, L=N, R=0, DFS(1,i,K);
+        for(int j=L; j&lt;=R; ++j) ans+=(sum[j]+=sum[j-1])&gt;0;
+        for(int j=L; j&lt;=R; ++j) sum[j]=0;
+    }
+    printf(&quot;%d\n&quot;,ans);
+ 
+    return 0;
+} 
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://charies2007.github.io/post/p6011-scoi2006dong-tai-zui-zhi/">
+                <h3 class="post-title">
+                  P6011 [SCOI2006]动态最值
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://charies2007.github.io/images/avatar.png?v=1582191569463" class="no-responsive avatar">
+    <div class="text-muted">仰望星空  是星星还是你？ </div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5750-noi1999ding-zi-he-xiao-qiu/">P5750 [NOI1999]钉子和小球</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5479-bjoi2015yin-shen-zhu/">P5479 [BJOI2015]隐身术</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p6011-scoi2006dong-tai-zui-zhi/">P6011 [SCOI2006]动态最值</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/sublime text 3/">把sublime text 3随身携带</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5567-sdoi2008li-fang-ti-fu-gai/">P5567 [SDOI2008]立方体覆盖</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5045-scoi2003zhi-zhu-nan-ti/">P5045 [SCOI2003]蜘蛛难题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5025-snoi2017zha-dan/">P5025 [SNOI2017]炸弹</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5746-noi2002ji-qi-ren-m-hao/">P5746 [NOI2002]机器人M号</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5747-noi2004man-ha-dun/">P5747 [NOI2004]曼哈顿</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p1141-01-mi-gong/">P1141 01迷宫</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge ">
+          动态规划，dp
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/DVV-gb4qg/" class="badge secondary">
+          深度优先搜索，DFS
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge secondary">
+          线段树
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge secondary">
+          文章
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/P8EqtRizK/" class="badge secondary">
+          模拟
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/weXoBZWVV/" class="badge secondary">
+          递推
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge ">
+          广度优先搜索，BFS
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge secondary">
+          游记
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://charies2007.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

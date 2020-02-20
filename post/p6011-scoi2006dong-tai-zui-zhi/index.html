@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>游记 | Star | zzzrx&#39;s Blog</title>
+<title>P6011 [SCOI2006]动态最值 | Star | zzzrx&#39;s Blog</title>
 <meta name="description" content="仰望星空  是星星还是你？ ">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -23,6 +23,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://charies2007.github.io">Star | zzzrx&#39;s Blog</a></h3>
@@ -79,40 +80,140 @@
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
-          <h2 class="current-tag">标签: 游记</h2>
-          
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://charies2007.github.io/post/2019csp/">2019CSP游记</a>
-    </h2>
-    <p class="article-meta">
-      2019-11-22
-      
-        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge secondary">
-          游记
-        </a>
-      
-    </p>
-    <p class="text-lead">
-      
-    </p>
-    <div class="row">
-      <a href="https://charies2007.github.io/post/2019csp/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
+          <article class="article">
+            <h1>P6011 [SCOI2006]动态最值</h1>
+            <p class="article-meta">
+              2020-02-02
+              
+                <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge success">
+                  线段树
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <p>单点更新，区间查询，适合用线段树来解决。其中注意删除操作的实现。查询区间最大最小值时，注意右子树的标号控制。</p>
+<p>更多注释详见代码</p>
+<pre><code class="language-cpp">#include &lt;bits/stdc++.h&gt;
+#define L(u) (u&lt;&lt;1)
+#define R(u) (u&lt;&lt;1|1)
+using namespace std;
+const int mx=1000001;
+struct Tree
+{
+    int lch,rch,Min,Max,num;
+} tree[mx&lt;&lt;2];//Min:区间最小值 Max:区间最大值 num:区间内尚存的，即未被删除的元素数目
+int d[mx],m,n,l,r,ans1,ans2;
+char s;
+void read(int &amp;k)
+{
+    int f=1;
+    char c=getchar();
+    while ((c&lt;48||c&gt;57)&amp;&amp;c!='-') c=getchar();
+    if (c=='-') f=-1,c=getchar();
+    k = 0;
+    while (48&lt;=c&amp;&amp;c&lt;=57) k=k*10+c-48,c=getchar();
+    k=f*k;
+}
+void Pushup(int u)
+{
+    tree[u].Max=max(tree[L(u)].Max,tree[R(u)].Max);
+    tree[u].Min=min(tree[L(u)].Min,tree[R(u)].Min);
+    tree[u].num=tree[L(u)].num+tree[R(u)].num;
+}
+void Build(int u,int l,int r)
+{//建树。根节点编号是1
+    tree[u].lch=l;
+    tree[u].rch=r;
+    if (l==r)
+	{//叶节点
+        tree[u].Max=tree[u].Min=d[l];
+        tree[u].num=1;
+        return ;
+    }
+    int mid=(l+r)&gt;&gt;1;
+    Build(L(u),l,mid);//递归，建左子树
+    Build(R(u),mid+1,r);//递归，建右子树
+    Pushup(u);//建完两棵子树，向上更新一下
+}
+void Delete(int u,int num)
+{//删除节点的操作实现。这个num是待删元素的标号
+    if((tree[u].lch==tree[u].rch))
+	{//叶节点。删的就是它
+        tree[u].num--;//没有元素了
+        tree[u].Min=2147483647;
+        tree[u].Max=-2147483648;
+        return;
+    }
+    int n1=tree[L(u)].num;
+    if(num&lt;=n1) Delete(L(u),num);//标号≤左子树所含元素个数，则待删元素在左子树上，递归找它
+    else Delete(R(u),num-n1);//不是左子树就是右子树啦。注意这里往右子树递归的时候，标号减去左子树所含元素数目
+    Pushup(u);//少了元素了，需要更新
+}
+void Query(int u,int l,int r)
+{
+    if (l==1&amp;&amp;tree[u].num==r)
+	{
+        ans1=min(ans1,tree[u].Min);
+        ans2=max(ans2,tree[u].Max);
+        return ;
+    }
+    int n1=tree[L(u)].num,n2=tree[R(u)].num;
+    if (l&lt;=n1&amp;&amp;r&gt;n1)
+	{//待查询区间跨了左右两棵子树
+        Query(L(u),l,n1);
+        Query(R(u),1,r-n1);
+    } else if (l&lt;=n1&amp;&amp;r&lt;=n1) Query(L(u),l,r);//左子树
+    else if (l&gt;n1&amp;&amp;r&lt;=n1+n2) Query(R(u),l-n1,r-n1);//右子树
+}
+int main()
+{
+    read(n);
+    read(m);
+    for (int i=1; i&lt;=n; ++i) read(d[i]);
+    for (int i=1; i&lt;=4*n; ++i) tree[i].Min=2147483647,tree[i].Max=-2147483648;
+    Build(1,1,n);
+    while (m--)
+	{
+        scanf(&quot; %c&quot;,&amp;s);
+        if (s=='1')
+		{
+            scanf(&quot;%d&quot;,&amp;l);
+            Delete(1,l);
+        }
+		else
+		{
+            scanf(&quot;%d%d&quot;,&amp;l,&amp;r);
+            ans1=2147483647,ans2=-2147483648;
+            Query(1,l,r);
+            printf(&quot;%d %d\n&quot;,ans1,ans2);
+        }
+    }
+    return 0;
+}
 
+</code></pre>
 
+            </div>
+          </article>
         </div>
-        <div class="row flex-edges">
-  
-  
-</div>
-
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://charies2007.github.io/post/sublime text 3/">
+                <h3 class="post-title">
+                  把sublime text 3随身携带
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
       </div>
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://charies2007.github.io/images/avatar.png?v=1582191569463" class="no-responsive avatar">
@@ -227,7 +328,7 @@
     </div>
     <div class="row">
       
-        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge success">
+        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge warning">
           动态规划，dp
         </a>
       
@@ -235,7 +336,7 @@
           深度优先搜索，DFS
         </a>
       
-        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge success">
+        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge secondary">
           线段树
         </a>
       
@@ -243,15 +344,15 @@
           文章
         </a>
       
-        <a href="https://charies2007.github.io/tag/P8EqtRizK/" class="badge secondary">
+        <a href="https://charies2007.github.io/tag/P8EqtRizK/" class="badge success">
           模拟
         </a>
       
-        <a href="https://charies2007.github.io/tag/weXoBZWVV/" class="badge ">
+        <a href="https://charies2007.github.io/tag/weXoBZWVV/" class="badge secondary">
           递推
         </a>
       
-        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge ">
+        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge warning">
           广度优先搜索，BFS
         </a>
       
@@ -265,6 +366,7 @@
     Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://charies2007.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
+
 
     </div>
 

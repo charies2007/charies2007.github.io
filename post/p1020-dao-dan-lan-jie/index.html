@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>游记 | Star | zzzrx&#39;s Blog</title>
+<title>P1020 导弹拦截 | Star | zzzrx&#39;s Blog</title>
 <meta name="description" content="仰望星空  是星星还是你？ ">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -23,6 +23,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://charies2007.github.io">Star | zzzrx&#39;s Blog</a></h3>
@@ -79,40 +80,67 @@
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
-          <h2 class="current-tag">标签: 游记</h2>
-          
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://charies2007.github.io/post/2019csp/">2019CSP游记</a>
-    </h2>
-    <p class="article-meta">
-      2019-11-22
-      
-        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge secondary">
-          游记
-        </a>
-      
-    </p>
-    <p class="text-lead">
-      
-    </p>
-    <div class="row">
-      <a href="https://charies2007.github.io/post/2019csp/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
+          <article class="article">
+            <h1>P1020 导弹拦截</h1>
+            <p class="article-meta">
+              2019-10-15
+              
+                <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge ">
+                  动态规划，dp
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <h3 id="这道题其实就是dp嘛">这道题其实就是DP嘛</h3>
+<p>这也让作者对此有了更深一步的认识。</p>
+<p>自从上次写了特别<s>特别特别</s>啰嗦的题解至今仍未通过以后</p>
+<h3 id="还是写简单一点的题吧">——还是写简单一点的题吧！</h3>
+<p>献上代码：</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;//最长不上升子序列 
+using namespace std;
+int h[101][101];
+int main()
+{
+	int n,max=0;
+	cin&gt;&gt;n;
+	for(int i=1;i&lt;=n;++i)
+	{
+		cin&gt;&gt;h[i][1];
+		h[i][2]=1;//初始当前系统拦截导弹数为1 
+	}
+	for(int i=n-1;i&gt;=1;--i)//累计从当前导弹开始，能够接到的最多的导弹 
+	for(int j=i+1;j&lt;=n;++j)
+		if(h[i][1]&gt;=h[j][1]&amp;&amp;h[i][2]&lt;=h[j][2]) h[i][2]=h[j][2]+1;//判断当前导弹高度是否小于系统能够拦截的导弹高度并找出最优解（高度最高） 
+	for(int i=1;i&lt;=n;++i)
+		if(h[i][2]&gt;max)max=h[i][2];//寻找导弹数的最大值 
+	cout&lt;&lt;max&lt;&lt;endl;//输出储存在max的能够接到的最多的导弹数 
+	//防抄袭措施：要拦截所有导弹最少要配备多少套这种导弹拦截系统自己写在补充一下程序就可以了 
+	return 0;
+}
+</code></pre>
+<h1 id="如果没ac看最后几句注释">如果没AC，看最后几句注释！！</h1>
 
-
+            </div>
+          </article>
         </div>
-        <div class="row flex-edges">
-  
-  
-</div>
-
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://charies2007.github.io/post/p1411-shu/">
+                <h3 class="post-title">
+                  P1411 树
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
       </div>
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://charies2007.github.io/images/avatar.png?v=1582191569463" class="no-responsive avatar">
@@ -227,11 +255,11 @@
     </div>
     <div class="row">
       
-        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge success">
+        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge secondary">
           动态规划，dp
         </a>
       
-        <a href="https://charies2007.github.io/tag/DVV-gb4qg/" class="badge secondary">
+        <a href="https://charies2007.github.io/tag/DVV-gb4qg/" class="badge warning">
           深度优先搜索，DFS
         </a>
       
@@ -239,7 +267,7 @@
           线段树
         </a>
       
-        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge secondary">
+        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge success">
           文章
         </a>
       
@@ -251,11 +279,11 @@
           递推
         </a>
       
-        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge ">
+        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge secondary">
           广度优先搜索，BFS
         </a>
       
-        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge warning">
+        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge ">
           游记
         </a>
       
@@ -265,6 +293,7 @@
     Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://charies2007.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
+
 
     </div>
 

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>游记 | Star | zzzrx&#39;s Blog</title>
+<title>P1141 01迷宫 | Star | zzzrx&#39;s Blog</title>
 <meta name="description" content="仰望星空  是星星还是你？ ">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -23,6 +23,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://charies2007.github.io">Star | zzzrx&#39;s Blog</a></h3>
@@ -79,40 +80,105 @@
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
-          <h2 class="current-tag">标签: 游记</h2>
-          
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://charies2007.github.io/post/2019csp/">2019CSP游记</a>
-    </h2>
-    <p class="article-meta">
-      2019-11-22
-      
-        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge secondary">
-          游记
-        </a>
-      
-    </p>
-    <p class="text-lead">
-      
-    </p>
-    <div class="row">
-      <a href="https://charies2007.github.io/post/2019csp/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
+          <article class="article">
+            <h1>P1141 01迷宫</h1>
+            <p class="article-meta">
+              2019-11-29
+              
+                <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge ">
+                  广度优先搜索，BFS
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <h2 id="这是一道非常典型的bfs题">这是一道非常典型的BFS题</h2>
+<p>我说实话，这道题和 <strong>填涂颜色</strong> 差不多</p>
+<p>都是输入<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<p><s>所以直接暴搜是最好的</s></p>
+<h3 id="上代码">上代码：</h3>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+int n,m;
+char g[1001][1001];//用char
+int det[4][2]={{1,0},{-1,0},{0,-1},{0,1}};//方向
+struct Point//个人喜欢用Point
+{
+	int x,y;
+};
+Point q[1000101],s;//Point
+int res[1001][1001];
+bool used[1001][1001];
+int ans;
+void bfs(Point cur)//bfs（Point）
+{
+	//memset(used,0,sizeof(used));
+	int f=1,e=0;//f必须为1，e必须为0
+	used[cur.x][cur.y]=1;
+	q[++e]=cur;
+	while(f&lt;=e)//满足条件，开始搜索
+	{
+		Point u=q[f++];//Point
+		for(int i=0;i&lt;4;i++)
+		{
+			Point v;//Point
+			v.x=u.x+det[i][0],v.y=u.y+det[i][1];
+			if(v.x&lt;0||v.x&gt;=n) continue;//过边界，跳过
+			if(v.y&lt;0||v.y&gt;=n) continue;//过边界，跳过
+			if(used[v.x][v.y]==1) continue;//重复，跳过
+			if(g[u.x][u.y]==g[v.x][v.y]) continue;//同一个点，跳过
+			used[v.x][v.y]=1;//第一个点
+			ans++;//ans+1
+			q[++e]=v;//继续搜索
+		}
+	}
+	for(int i=1;i&lt;=e;i++)
+		res[q[i].x][q[i].y]=ans;
+}
+int main()
+{
+	memset(res,-1,sizeof(res));//清空res
+	cin&gt;&gt;n&gt;&gt;m;
+	for(int i=0;i&lt;n;i++)
+		scanf(&quot;%s&quot;,g[i]);//scanf省时间
+	for(int _m=1;_m&lt;=m;_m++)//已经使用过m，设置个_m作为变量
+	{
+		scanf(&quot;%d %d&quot;,&amp;s.x,&amp;s.y);//scanf省时间
+		s.x--,s.y--;
+		if(res[s.x][s.y]==-1)//网格为1
+		{
+			ans=1;//答案为1
+			bfs(s);//开始搜索
+		}
+		//cout&lt;&lt;res[s.x][s.y]&lt;&lt;endl;
+		printf(&quot;%d\n&quot;,res[s.x][s.y]);//printf省时间
+	}
+	return 0;
+}
+</code></pre>
+<p>代码100%AC</p>
+<p>其中有很多优化，比如scanf，printf，自己理解</p>
 
-
+            </div>
+          </article>
         </div>
-        <div class="row flex-edges">
-  
-  
-</div>
-
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://charies2007.github.io/post/2019csp/">
+                <h3 class="post-title">
+                  2019CSP游记
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
       </div>
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://charies2007.github.io/images/avatar.png?v=1582191569463" class="no-responsive avatar">
@@ -239,11 +305,11 @@
           线段树
         </a>
       
-        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge secondary">
+        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge ">
           文章
         </a>
       
-        <a href="https://charies2007.github.io/tag/P8EqtRizK/" class="badge secondary">
+        <a href="https://charies2007.github.io/tag/P8EqtRizK/" class="badge success">
           模拟
         </a>
       
@@ -255,7 +321,7 @@
           广度优先搜索，BFS
         </a>
       
-        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge warning">
+        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge secondary">
           游记
         </a>
       
@@ -265,6 +331,7 @@
     Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://charies2007.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
+
 
     </div>
 

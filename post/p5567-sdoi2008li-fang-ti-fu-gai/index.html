@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>游记 | Star | zzzrx&#39;s Blog</title>
+<title>P5567 [SDOI2008]立方体覆盖 | Star | zzzrx&#39;s Blog</title>
 <meta name="description" content="仰望星空  是星星还是你？ ">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -23,6 +23,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://charies2007.github.io">Star | zzzrx&#39;s Blog</a></h3>
@@ -79,40 +80,101 @@
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
-          <h2 class="current-tag">标签: 游记</h2>
-          
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://charies2007.github.io/post/2019csp/">2019CSP游记</a>
-    </h2>
-    <p class="article-meta">
-      2019-11-22
-      
-        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge secondary">
-          游记
-        </a>
-      
-    </p>
-    <p class="text-lead">
-      
-    </p>
-    <div class="row">
-      <a href="https://charies2007.github.io/post/2019csp/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
+          <article class="article">
+            <h1>P5567 [SDOI2008]立方体覆盖</h1>
+            <p class="article-meta">
+              2019-12-16
+              
+                <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge warning">
+                  线段树
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <p>看到题目的描述，就很容易想到扫描线，但是扫描线是二维的，这道题是三维的，怎么办？</p>
+<p>我们运用扫描线的思想，将这些立方体分隔成为许多的小立方体（如下图）。我们这样就可以每一次计算小立方体就可以了，每一次我们运用扫描线求出众多矩形的面积并，再乘以横向的长度，就可以求出小体积，再将这些小体积相加，就是答案。</p>
+<pre><code class="language-cpp">#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define N 101
+#define inf 1000
+int n,cnt,idx,root,ans,tot;
+int son[3000&lt;&lt;5][2],times[3000&lt;&lt;5],sum[3000&lt;&lt;5];
+struct Surface {int x1,y1,x2,y2,z,kind;}surface[N&lt;&lt;5];
+bool cmp1(const Surface &amp;a,const Surface &amp;b) {return a.z&lt;b.z;}
+struct Line {int x,y1,y2,kind;}line[N&lt;&lt;1];
+bool cmp2(const Line &amp;a,const Line &amp;b) {return a.x&lt;b.x;}
+void update(int p,int l,int r)
+{(times[p])?sum[p]=r-l+1:sum[p]=sum[son[p][0]]+sum[son[p][1]];}
+void change(int &amp;p,int l,int r,int x,int y,int delta)
+{
+	if(!p) p=++cnt;
+	if(x&lt;=l&amp;&amp;r&lt;=y) {times[p]+=delta,update(p,l,r);return;}
+	int mid=(l+r)&gt;&gt;1;
+	if(x&lt;=mid) change(son[p][0],l,mid,x,y,delta);
+	if(y&gt;mid) change(son[p][1],mid+1,r,x,y,delta);update(p,l,r);
+}
+int main()
+{
+	scanf(&quot;%d&quot;,&amp;n);
+	for(int i=1;i&lt;=n;i++)
+	{
+		int a,b,c,d;scanf(&quot;%d%d%d%d&quot;,&amp;a,&amp;b,&amp;c,&amp;d);
+		surface[++idx].z=c-d,surface[idx].x1=a-d;
+		surface[idx].y1=b+d,surface[idx].x2=a+d;
+		surface[idx].y2=b-d,surface[idx].kind=1;
+		surface[++idx].z=c+d,surface[idx].x1=a-d;
+		surface[idx].y1=b+d,surface[idx].x2=a+d;
+		surface[idx].y2=b-d,surface[idx].kind=-1;
+	}
+	sort(surface+1,surface+idx+1,cmp1),surface[idx+1].z=surface[idx].z;
+	for(int i=1,tmp=0;i&lt;=idx;tmp=0)
+	{
+		int area=0;
+		while(surface[i].z==surface[i+tmp].z&amp;&amp;i+tmp&lt;=idx) tmp++;
+		for(int j=0;j&lt;tmp;j++)
+		{
+			line[++tot].x=surface[j+i].x1,line[tot].y1=surface[j+i].y2;
+			line[tot].y2=surface[j+i].y1-1;
+			line[tot].kind=1*surface[i+j].kind;
+			line[++tot].x=surface[j+i].x2,line[tot].y1=surface[j+i].y2;
+			line[tot].y2=surface[j+i].y1-1;
+			line[tot].kind=-1*surface[i+j].kind;
+		}sort(line+1,line+tot+1,cmp2);
+		for(int j=1,now=0;j&lt;=tot;j+=now,now=0)
+		{
+			area+=sum[root]*(-line[j-1].x+line[j].x);
+			while(line[j+now].x==line[j].x)
+				change(root,-inf,inf,line[j+now].y1,line[j+now].y2
+					,line[j+now].kind),now++;
+		}i+=tmp;
+		ans+=area*(surface[i].z-surface[i-1].z);
+	}
+	printf(&quot;%d&quot;,ans);
+}
+</code></pre>
 
-
+            </div>
+          </article>
         </div>
-        <div class="row flex-edges">
-  
-  
-</div>
-
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://charies2007.github.io/post/p5045-scoi2003zhi-zhu-nan-ti/">
+                <h3 class="post-title">
+                  P5045 [SCOI2003]蜘蛛难题
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
       </div>
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://charies2007.github.io/images/avatar.png?v=1582191569463" class="no-responsive avatar">
@@ -227,7 +289,7 @@
     </div>
     <div class="row">
       
-        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge success">
+        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge ">
           动态规划，dp
         </a>
       
@@ -235,11 +297,11 @@
           深度优先搜索，DFS
         </a>
       
-        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge success">
+        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge secondary">
           线段树
         </a>
       
-        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge secondary">
+        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge ">
           文章
         </a>
       
@@ -251,11 +313,11 @@
           递推
         </a>
       
-        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge ">
+        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge success">
           广度优先搜索，BFS
         </a>
       
-        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge warning">
+        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge ">
           游记
         </a>
       
@@ -265,6 +327,7 @@
     Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://charies2007.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
+
 
     </div>
 

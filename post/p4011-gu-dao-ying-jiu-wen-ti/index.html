@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>游记 | Star | zzzrx&#39;s Blog</title>
+<title>P4011 孤岛营救问题 | Star | zzzrx&#39;s Blog</title>
 <meta name="description" content="仰望星空  是星星还是你？ ">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -23,6 +23,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://charies2007.github.io">Star | zzzrx&#39;s Blog</a></h3>
@@ -79,40 +80,123 @@
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
-          <h2 class="current-tag">标签: 游记</h2>
-          
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://charies2007.github.io/post/2019csp/">2019CSP游记</a>
-    </h2>
-    <p class="article-meta">
-      2019-11-22
-      
-        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge secondary">
-          游记
-        </a>
-      
-    </p>
-    <p class="text-lead">
-      
-    </p>
-    <div class="row">
-      <a href="https://charies2007.github.io/post/2019csp/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
+          <article class="article">
+            <h1>P4011 孤岛营救问题</h1>
+            <p class="article-meta">
+              2019-10-18
+              
+                <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge secondary">
+                  广度优先搜索，BFS
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <h2 id="写完了dp的题解来篇bfs的再说">写完了DP的题解，来篇BFS的再说</h2>
+<p>作者居然刷出了一道紫题，<s>也是有些懵逼</s></p>
+<p>借鉴了楼上各位dalao的代码以后……</p>
+<p>也磨出了一点代码</p>
+<p>呈上：</p>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;//万能头文件 
+using namespace std;
+struct Point//宽搜题先设个Point，这是作者的习惯 
+{
+    int x,y,step;
+    bool key[11];
+    int num;
+};
+int det[4][2]={{-1,0},{1,0},{0,1},{0,-1}};
+Point q[4000000],s;
+bool used[11][11][2048];
+int f,e;
+int n,m,p,k,sk;
+int g[11][11][11][11];
+int kk[11][11][11];
+int c(Point cur)//Point有用了 
+{
+	int res=0,tp=1;
+	for(int i=1;i&lt;=10;i++)
+	{
+		res=res+cur.key[i]*tp;
+		tp=tp*2;
+	}
+	return res;
+}
+int main()
+{
+	cin&gt;&gt;n&gt;&gt;m&gt;&gt;p;
+	cin&gt;&gt;k;
+	for(int i=1;i&lt;=k;i++)
+	{
+		int x1,y1,x2,y2;
+		cin&gt;&gt;x1&gt;&gt;y1&gt;&gt;x2&gt;&gt;y2;
+		cin&gt;&gt;g[x1][y1][x2][y2];
+		if(g[x1][y1][x2][y2]==0)g[x1][y1][x2][y2]=-1;
+		g[x2][y2][x1][y1]=g[x1][y1][x2][y2];
+	}
+	cin&gt;&gt;sk;
+	for(int i=1;i&lt;=sk;i++)
+	{
+		int x1,y1,z1;
+		cin&gt;&gt;x1&gt;&gt;y1&gt;&gt;z1;
+		kk[x1][y1][z1]=1;
+	}
+	s.x=1,s.y=1,s.step=0;
+	memset(s.key,0,sizeof(s.key));
+	q[1]=s;
+	f=e=1;
+	while(f&lt;=e)
+	{
+		Point u=q[f++];//Point又有用了 
+		for(int i=0;i&lt;4;i++)
+		{
+			Point v=u;//Point屡试不爽 
+			v.x=u.x+det[i][0],v.y=u.y+det[i][1],v.step=u.step+1;
+			if(v.x&lt;1||v.x&gt;n||v.y&lt;1||v.y&gt;m)continue;
+			if(g[u.x][u.y][v.x][v.y]==-1)continue;
+			if(g[u.x][u.y][v.x][v.y]&gt;0&amp;&amp;u.key[g[u.x][u.y][v.x][v.y]]==0)continue;
+			if(v.x==n&amp;&amp;v.y==m)
+			{
+				cout&lt;&lt;v.step&lt;&lt;endl;
+				return 0;
+			}
+			
+			//if(kk[v.x][v.y]!=0)v.key[kk[v.x][v.y]]=1;  坎坷之路啊！ 
+			for(int i=1;i&lt;=10;i++)
+			if(kk[v.x][v.y][i]==1) v.key[i]=1;
+			v.num=c(v);
+			if(used[v.x][v.y][v.num]==1)continue;
+			q[++e]=v;
+			used[v.x][v.y][v.num]=1;
+			
+		}
+	}
+	cout&lt;&lt;-1&lt;&lt;endl;
+	return 0;
+}
+</code></pre>
+<h2 id="希望对各位有帮助">希望对各位有帮助！！！</h2>
 
-
+            </div>
+          </article>
         </div>
-        <div class="row flex-edges">
-  
-  
-</div>
-
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://charies2007.github.io/post/p1048-cai-yao/">
+                <h3 class="post-title">
+                  P1048 采药
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
       </div>
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://charies2007.github.io/images/avatar.png?v=1582191569463" class="no-responsive avatar">
@@ -227,7 +311,7 @@
     </div>
     <div class="row">
       
-        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge success">
+        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge ">
           动态规划，dp
         </a>
       
@@ -235,23 +319,23 @@
           深度优先搜索，DFS
         </a>
       
-        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge success">
+        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge secondary">
           线段树
         </a>
       
-        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge secondary">
+        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge ">
           文章
         </a>
       
-        <a href="https://charies2007.github.io/tag/P8EqtRizK/" class="badge secondary">
+        <a href="https://charies2007.github.io/tag/P8EqtRizK/" class="badge success">
           模拟
         </a>
       
-        <a href="https://charies2007.github.io/tag/weXoBZWVV/" class="badge ">
+        <a href="https://charies2007.github.io/tag/weXoBZWVV/" class="badge secondary">
           递推
         </a>
       
-        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge ">
+        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge secondary">
           广度优先搜索，BFS
         </a>
       
@@ -265,6 +349,7 @@
     Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://charies2007.github.io/atom.xml" target="_blank">RSS</a>
   </div>
 </div>
+
 
     </div>
 
