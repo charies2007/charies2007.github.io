@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>把sublime text 3随身携带 | Star | zzzrx&#39;s Blog</title>
+<meta name="description" content="仰望星空  是星星还是你？ ">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://charies2007.github.io/favicon.ico?v=1582276619930">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://charies2007.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://charies2007.github.io">Star | zzzrx&#39;s Blog</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>把sublime text 3随身携带</h1>
+            <p class="article-meta">
+              2019-12-17
+              
+                <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge success">
+                  文章
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <p>我们学校一直用<code>dev-cpp</code>，我不能用<code>sublime</code>，<s>不开森</s></p>
+<p>为了让<s>广大AFO</s>或刷题的人在<strong>机房</strong>能用上<code>sublime text 3</code></p>
+<p><strong>所以，我思考了把Sublime Text 3 便携版装进U盘随身携带的方法</strong></p>
+<p><s>在查阅相关教程后，本人现整理出一份基于<code>Sublime Text 3</code>制作便携IDE的方法，供大家参考</s></p>
+<p><strong>进入正题：</strong></p>
+<p><em>Step1 下载Sublime Text 3 免安装版</em></p>
+<p>去<a href="http://www.sublimetext.com/3">官网</a>查找最新版下载</p>
+<figure data-type="image" tabindex="1"><img src="https://cdn.luogu.com.cn/upload/image_hosting/xu1k432z.png" alt="" loading="lazy"></figure>
+<p>我们学校是64位的，所以选</p>
+<pre><code>Windows 64 bit - also available as a portable version
+</code></pre>
+<p><s>羡慕不</s></p>
+<p>为了考虑<s>兼容性</s>，<strong>大部分</strong>学校的电脑是32位，所以选</p>
+<pre><code>Windows - also available as a portable version
+</code></pre>
+<p>最后，<s>我认为不可能</s>，如果是Linux，选</p>
+<pre><code>Linux repos - also available as a 64 bit or 32 bit tarball
+</code></pre>
+<p><strong>解压以后放在U盘目录下</strong></p>
+<p><em>Step2 下载MinGW编译器</em></p>
+<p>在<a href="https://pan.baidu.com/s/1_yMAlbe6SkO-SX0US1Ow2Q">Link</a>中下载（提取码c5m3）</p>
+<p>由于官网下载的链接有时连接不稳定，现在已经有下载好的<code>MinGW32</code>安装包，大家解压后可以直接使用</p>
+<p><strong>解压以后放在U盘目录下</strong></p>
+<p><em>Step3 新建编译系统文件</em></p>
+<p>众所周知，Sublime Text 3 初始只有C++的编译系统，且不是在<code>cmd</code>中运行</p>
+<p>而且<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>c</mi><mi>i</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">cin</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span></span></span></span>和<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi><mi>c</mi><mi>a</mi><mi>n</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">scanf</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">s</span><span class="mord mathdefault">c</span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span></span></span></span>函数不能使用，所以我们要<strong>新建一个编译系统</strong></p>
+<p>因为有两种语言需要编译，要调用两个不同的编译器，分别为<code>gcc</code>和<code>g++</code>，所以有两个<code>.sublime-build</code>（编译系统）文件需要新建</p>
+<ul>
+<li>C语言</li>
+<li>打开<code>Sublime Text 3</code>，选择<code>Tool-Build-System-New Build System...</code>来新建一个编译系统</li>
+<li>复制以下代码：</li>
+</ul>
+<pre><code>{
+    &quot;encoding&quot;: &quot;cp936&quot;,
+    &quot;working_dir&quot;: &quot;$file_path&quot;,
+    &quot;cmd&quot;: &quot;F:/MinGW32/bin/gcc -fexec-charset=GBK -Wall \&quot;$file_name\&quot; -o \&quot;$file_base_name\&quot;&quot;,
+    &quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,
+    &quot;selector&quot;: &quot;source.C&quot;,
+ 
+    &quot;variants&quot;:
+    [
+        {   
+        &quot;name&quot;: &quot;Run&quot;,
+            &quot;shell_cmd&quot;: &quot;F:/MinGW32/bin/gcc -fexec-charset=GBK -Wall \&quot;$file\&quot; -o \&quot;$file_base_name\&quot; &amp;&amp; start cmd /c \&quot;\&quot;${file_path}/${file_base_name}\&quot; &amp; pause\&quot;&quot;
+        }
+    ]
+}
+</code></pre>
+<ul>
+<li>
+<p>保存为<code>MY C.sublime-build</code></p>
+</li>
+<li>
+<p>完成！</p>
+</li>
+<li>
+<p>C++语言</p>
+</li>
+<li>
+<p>打开<code>Sublime Text 3</code>，选择<code>Tool-Build-System-New Build System...</code>来新建一个编译系统</p>
+</li>
+<li>
+<p>复制以下代码：</p>
+</li>
+</ul>
+<pre><code>{
+    &quot;encoding&quot;: &quot;cp936&quot;,
+    &quot;working_dir&quot;: &quot;$file_path&quot;,
+    &quot;cmd&quot;: &quot;F:/MinGW32/bin/g++ -fexec-charset=GBK -Wall -std=c++11 \&quot;$file_name\&quot; -o \&quot;$file_base_name\&quot;&quot;,
+    &quot;file_regex&quot;: &quot;^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$&quot;,
+    &quot;selector&quot;: &quot;source.C++&quot;,
+ 
+    &quot;variants&quot;:
+    [
+        {
+        &quot;name&quot;: &quot;Run&quot;,
+            &quot;shell_cmd&quot;: &quot;F:/MinGW32/bin/g++ -fexec-charset=GBK -Wall -std=c++11 \&quot;$file\&quot; -o \&quot;$file_base_name\&quot; &amp;&amp; start cmd /c \&quot;\&quot;${file_path}/${file_base_name}\&quot; &amp; pause\&quot;&quot;
+        }
+    ]
+}
+</code></pre>
+<ul>
+<li>保存为<code>MY C++.sublime-build</code></li>
+<li>完成！</li>
+</ul>
+<p>在这里，需要注意的是，这两个<code>.sublime-build</code>文件的第4行<code>cmd</code>以及第12行<code>shell _ cmd</code>中的<code>F:/MinGW32/bin/gcc</code>和<code>F:/MinGW32/bin/g++</code>需要修改为自己U盘所在的盘符及路径</p>
+<p>一般来说，将<code>MinGW</code>放在U盘根目录下，按照我的编译系统，只需要修改盘符</p>
+<p>至此，<code>Sublime Text 3</code>已经能够调用U盘上的<code>gcc\g++</code>编译文件了，但是，有些缺少部分文件的电脑在编译时会报错，所以下一步我们来方便地添加这些文件</p>
+<p><s>(其实还教了把MinGW编译器随身携带）</s></p>
+<p><em>Step4 复制缺少的文件</em></p>
+<p>在第一次编译时，系统有可能会报错，<strong>缺少部分文件</strong></p>
+<p>由于我们是学校机房的电脑，每一次重启都会重置系统，所以一次添加，永久受益是不现实的，所以，我们选择用.bat文件来批量操作，化简这一步骤</p>
+<ol>
+<li>
+<p>统计需要添加的文件</p>
+<p>完整地编译、运行一次程序，在<code>MinGW\bin</code>目录下找到所有需要添加的文件</p>
+</li>
+<li>
+<p>将文件名记录下来</p>
+<p>也可以将文件统一复制到一个新的文件夹，以后有需要可以继续往里面添加</p>
+</li>
+<li>
+<p>制作一个<code>.bat</code>文件，将需要的文件复制到相应的目录</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>打开<code>Sublime Text 3</code>，新建一个文件</p>
+</li>
+<li>
+<p>复制粘贴输入以下代码：<s>（因电脑而异，不要照搬）</s></p>
+</li>
+</ul>
+<pre><code>echo Add to compile missing files
+
+copy /y &quot;F:\MinGW32\bin\libgcc_s_dw2-1.dll&quot; &quot;C:\Windows\System32&quot;
+copy /y &quot;F:\MinGW32\bin\libgmp-10.dll&quot;      &quot;C:\Windows\System32&quot;
+copy /y &quot;F:\MinGW32\bin\libmpc-3.dll&quot;       &quot;C:\Windows\System32&quot;
+copy /y &quot;F:\MinGW32\bin\libmpfr-4.dll&quot;      &quot;C:\Windows\System32&quot;
+copy /y &quot;F:\MinGW32\bin\zlib1.dll&quot;          &quot;C:\Windows\System32&quot;
+copy /y &quot;F:\MinGW32\bin\libstdc++-6.dll&quot;    &quot;C:\Windows\System32&quot;
+
+copy /y &quot;F:\MinGW32\bin\libgcc_s_dw2-1.dll&quot; &quot;C:\Windows\SysWOW64&quot;
+copy /y &quot;F:\MinGW32\bin\libgmp-10.dll&quot;      &quot;C:\Windows\SysWOW64&quot;
+copy /y &quot;F:\MinGW32\bin\libmpc-3.dll&quot;       &quot;C:\Windows\SysWOW64&quot;
+copy /y &quot;F:\MinGW32\bin\libmpfr-4.dll&quot;      &quot;C:\Windows\SysWOW64&quot;
+copy /y &quot;F:\MinGW32\bin\zlib1.dll&quot;          &quot;C:\Windows\SysWOW64&quot;
+copy /y &quot;F:\MinGW32\bin\libstdc++-6.dll&quot;    &quot;C:\Windows\SysWOW64&quot;
+
+echo Finished
+pause
+</code></pre>
+<ul>
+<li>
+<p>保存为 添加缺少的文件<code>.bat</code></p>
+</li>
+<li>
+<p>各位可以对照，<strong>按照自己的需求</strong>，添加相应的文件</p>
+</li>
+</ul>
+<p>同样的，需要注意的是，这个添加缺少的文件<code>.bat</code>文件中的的盘符F<strong>需要修改为自己U盘所在的盘符及路径</strong>。<br>
+而后面的 <em>C:\Windows\System32</em> 及 <em>C:\Windows\SysWOW64</em> <strong>不需要做修改</strong></p>
+<p>需要添加缺少文件时，双击即可运行</p>
+<h2 id="结束">结束</h2>
+<p><s>懒人的</s><a href="https://pan.baidu.com/s/1AEUysnCa1x6O0RAzUfyqmw">Link</a>，<strong>里面有上述所有的文件，只需修改盘符</strong>（提取码eak6）</p>
+<p>将它解压缩直接放到U盘根目录下，修改<code>.sublime-build</code>以及添加缺少的文件<code>.bat</code></p>
+<p>文件中的路径，既可以正常使用</p>
+<h3 id="如果有不明白或者有更好的方法欢迎在评论区留言以及指正谢谢">如果有不明白，或者有更好的方法，欢迎在评论区留言以及指正！谢谢！</h3>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://charies2007.github.io/post/p5567-sdoi2008li-fang-ti-fu-gai/">
+                <h3 class="post-title">
+                  P5567 [SDOI2008]立方体覆盖
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://charies2007.github.io/images/avatar.png?v=1582276619930" class="no-responsive avatar">
+    <div class="text-muted">仰望星空  是星星还是你？ </div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5750-noi1999ding-zi-he-xiao-qiu/">P5750 [NOI1999]钉子和小球</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5479-bjoi2015yin-shen-zhu/">P5479 [BJOI2015]隐身术</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p6011-scoi2006dong-tai-zui-zhi/">P6011 [SCOI2006]动态最值</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/ba-sublime-text-3-sui-shen-xi-dai/">把sublime text 3随身携带</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5567-sdoi2008li-fang-ti-fu-gai/">P5567 [SDOI2008]立方体覆盖</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5045-scoi2003zhi-zhu-nan-ti/">P5045 [SCOI2003]蜘蛛难题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5025-snoi2017zha-dan/">P5025 [SNOI2017]炸弹</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5746-noi2002ji-qi-ren-m-hao/">P5746 [NOI2002]机器人M号</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5747-noi2004man-ha-dun/">P5747 [NOI2004]曼哈顿</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p1141-01-mi-gong/">P1141 01迷宫</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge warning">
+          动态规划，dp
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/DVV-gb4qg/" class="badge warning">
+          深度优先搜索，DFS
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge warning">
+          线段树
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge secondary">
+          文章
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/P8EqtRizK/" class="badge ">
+          模拟
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/weXoBZWVV/" class="badge success">
+          递推
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge ">
+          广度优先搜索，BFS
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge ">
+          游记
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://charies2007.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>
