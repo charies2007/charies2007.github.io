@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>P1477 [NOI2008]假面舞会 | Star | zzzrx&#39;s Blog</title>
+<meta name="description" content="仰望星空  是星星还是你？ ">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://charies2007.github.io/favicon.ico?v=1583922221586">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://charies2007.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://charies2007.github.io">Star | zzzrx&#39;s Blog</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>P1477 [NOI2008]假面舞会</h1>
+            <p class="article-meta">
+              2020-03-09
+              
+                <a href="https://charies2007.github.io/tag/DVV-gb4qg/" class="badge warning">
+                  深度优先搜索，DFS
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <p>给出的是一个有向图，求出的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span></span></span></span>必须满足是所有环上点数的倍数，那么最直接的想法一定是找出所有的环求环上点数的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>g</mi><mi>c</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">gcd</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">c</span><span class="mord mathdefault">d</span></span></span></span>。<br>
+那么关键就是如何找出所有的环并计算点数(可以不考虑环套环)。</p>
+<p>对于关系<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">(x,y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span>加入<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi><mo>−</mo><mo>&gt;</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x-&gt;y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span>权值为1的有向边，然后同时加入<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi><mo>−</mo><mo>&gt;</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">y-&gt;x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mord">−</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>权值为-1的有向边，把图变成无向图。</p>
+<p>然后进行dfs,如果与<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>相连的<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span></span></span></span>已经访问过了，那么就用<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>b</mi><mi>s</mi><mo>(</mo><mi>d</mi><mo>[</mo><mi>x</mi><mo>]</mo><mo>+</mo><mi>c</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>−</mo><mi>d</mi><mo>[</mo><mi>v</mi><mo>[</mo><mi>i</mi><mo>]</mo><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">abs(d[x]+c[i]-d[v[i]])</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">b</span><span class="mord mathdefault">s</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">c</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span>更新答案。</p>
+<p>对于至少的问题，找到<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>a</mi><mi>n</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">ans</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span></span></span></span>的大于3的最小因子即可。</p>
+<p>还有就是没有环的情况，可能是多条链或者树结构。对于这种情况答案就是每个连通块的最长链的和。最小值直接就是3.</p>
+<pre><code class="language-cpp">#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+#include&lt;cstring&gt;
+#include&lt;cstdio&gt;
+#define M 2000003
+#define N 200003
+using namespace std;
+int point[N],d[N],vis[N],n,m,tot,ans,mn,mx;
+int nxt[M],c[M],v[M];
+void add(int x,int y,int z)
+{
+    tot++; nxt[tot]=point[x]; point[x]=tot; v[tot]=y; c[tot]=z;
+} 
+int gcd(int x,int y){
+    int r;
+    while (y) {
+        r=x%y;
+        x=y; y=r;
+    }
+    return x;
+}
+void dfs(int x)
+{
+    vis[x]=1;
+    for (int i=point[x];i;i=nxt[i])
+     if (vis[v[i]]) ans=gcd(ans,abs(d[x]+c[i]-d[v[i]]));
+     else {
+        d[v[i]]=d[x]+c[i];
+        dfs(v[i]);
+     }
+}
+void solve(int x)
+{
+    vis[x]=1;
+    mn=min(d[x],mn); mx=max(d[x],mx);
+    for (int i=point[x];i;i=nxt[i]){
+        if (vis[v[i]]) continue;
+        d[v[i]]=d[x]+c[i];
+        solve(v[i]);
+    }
+}
+int main()
+{
+    freopen(&quot;party2008.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;party2008.out&quot;,&quot;w&quot;,stdout); 
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for (int i=1;i&lt;=m;i++) {
+        int x,y; scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+        add(x,y,1); add(y,x,-1);
+    } 
+    for (int i=1;i&lt;=n;i++)
+     if (!vis[i]) dfs(i);
+    if (ans) {
+        if (ans&lt;3) {
+            printf(&quot;-1 -1\n&quot;);
+            return 0;
+        }
+        mn=0;
+        for (int i=1;i&lt;=ans;i++)
+         if (ans%i==0&amp;&amp;i&gt;=3) {
+            mn=i;
+            break;
+         }
+        printf(&quot;%d %d\n&quot;,ans,mn);
+        return 0;
+    }
+    memset(vis,0,sizeof(vis));
+    memset(d,0,sizeof(d));
+    for (int i=1;i&lt;=n;i++)
+     if (!vis[i]) {
+        mx=mn=0;
+        solve(i);
+        ans+=mx-mn+1;
+     }
+    mn=3;
+    if (ans&lt;3) ans=mn=-1;
+    printf(&quot;%d %d\n&quot;,ans,mn);
+}
+</code></pre>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://charies2007.github.io/post/p5750-noi1999ding-zi-he-xiao-qiu/">
+                <h3 class="post-title">
+                  P5750 [NOI1999]钉子和小球
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://charies2007.github.io/images/avatar.png?v=1583922221586" class="no-responsive avatar">
+    <div class="text-muted">仰望星空  是星星还是你？ </div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p1477-noi2008jia-mian-wu-hui/">P1477 [NOI2008]假面舞会</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5750-noi1999ding-zi-he-xiao-qiu/">P5750 [NOI1999]钉子和小球</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5479-bjoi2015yin-shen-zhu/">P5479 [BJOI2015]隐身术</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p6011-scoi2006dong-tai-zui-zhi/">P6011 [SCOI2006]动态最值</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/ba-sublime-text-3-sui-shen-xi-dai/">把sublime text 3随身携带</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5567-sdoi2008li-fang-ti-fu-gai/">P5567 [SDOI2008]立方体覆盖</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5045-scoi2003zhi-zhu-nan-ti/">P5045 [SCOI2003]蜘蛛难题</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5025-snoi2017zha-dan/">P5025 [SNOI2017]炸弹</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5746-noi2002ji-qi-ren-m-hao/">P5746 [NOI2002]机器人M号</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://charies2007.github.io/post/p5747-noi2004man-ha-dun/">P5747 [NOI2004]曼哈顿</a>
+            </li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://charies2007.github.io/tag/DVV-gb4qg/" class="badge ">
+          深度优先搜索，DFS
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/9bvcSYyUv/" class="badge success">
+          动态规划，dp
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/UmpfcDM6F/" class="badge ">
+          线段树
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/PUTOymuJO/" class="badge success">
+          文章
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/P8EqtRizK/" class="badge secondary">
+          模拟
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/weXoBZWVV/" class="badge ">
+          递推
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/bIusVKUHd/" class="badge success">
+          广度优先搜索，BFS
+        </a>
+      
+        <a href="https://charies2007.github.io/tag/--XQbtqJ-/" class="badge ">
+          游记
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://charies2007.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>
